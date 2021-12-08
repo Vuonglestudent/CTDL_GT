@@ -8,14 +8,14 @@ export default class DoublyLinkedList {
         let temp = this.head;
         let viTri = 0;
         while (temp) {
-            if (temp.video === +value) {
-                console.log('Tìm thấy ' + value + ' tại vị trí thứ ' + viTri);
+            if (JSON.stringify(temp.video) === JSON.stringify(value.video)) {
+                console.log('Tìm thấy ' + value.video.titleVideo + ' tại vị trí thứ ' + viTri);
                 return temp;
             }
             viTri++;
             temp = temp.next;
         }
-        console.log('Không tìm thấy ' + value);
+        console.log('Không tìm thấy ' + value.video.titleVideo);
         return null;
     }
     insertNodeBefore(node, position) {
@@ -82,15 +82,54 @@ export default class DoublyLinkedList {
     }
     printList() {
         let temp = this.head;
-        let output = 'List : ';
+        let output = []; // Lưu doubly thành array để xuất array ra màn hình.
         while (temp) {
-            output += temp.video + ', ';
+            output.push(temp.video);
             temp = temp.next;
         }
 
-        console.log('Head', this.head);
-        console.log('Tail', this.tail);
+        console.log(this.head, this.tail, this.size);
         console.log(output);
+    }
+
+    insertAtHead(node) {
+        // Nếu head = null, ta cho cả head và tail = node mới
+        if (this.head == null) {
+            this.head = node;
+            this.tail = node;
+            this.size++;
+            return;
+        }
+        // Nếu không ta update head = node
+        this.head.prev = node;
+        node.next = this.head;
+        this.head = node;
+        this.size++;
+    }
+    // Ham thêm vào cuối list
+    insertAtEnd(node) {
+        //Nếu head là null => node mới sẽ là head và tail
+        if (this.head == null) {
+            this.head = node;
+            this.tail = node;
+            this.size++;
+            return;
+        }
+        // nếu đã có head, cập nhật lại tail là node mới
+        this.tail.next = node;
+        node.prev = this.tail;
+        this.tail = node;
+        this.size++;
+    }
+
+    returnNode(value) {
+        let temp = this.head;
+        for (let i = 0; i < this.size; i++) {
+            if (i == value) {
+                return temp;
+            }
+            temp = temp.next;
+        }
     }
 }
 

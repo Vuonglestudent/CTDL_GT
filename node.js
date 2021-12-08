@@ -1,30 +1,27 @@
-let video = [
-    {
-        id: 1,
-        name: 'Vid 1',
-        src: 'https://youtu.be/rGhvqK9eLBg?list=RDrGhvqK9eLBg',
-        image: 'https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300'
-    },
-    {
-        id: 2,
-        name: 'Vid 2',
-        src: 'https://youtu.be/H0N-49WBBxk?list=RDMM',
-        image: 'https://www.w3schools.com/w3images/fjords.jpg'
-    },
-    {
-        id: 3,
-        name: 'Vid 3',
-        src: 'https://youtu.be/ORQB3w-hWRo?list=RDMM',
-        image: 'https://thumbs.dreamstime.com/b/cosmos-beauty-deep-space-elements-image-furnished-nasa-science-fiction-art-102581846.jpg'
-    },
-]
+let index = 0;
 
-export default class Node {
-    constructor(video) {
-        this.video = video;
-        this.prev = null;
-        this.next = null;
-        this.size = 0;
+export class Video {
+    constructor(data) {
+        let dataAPI = data.items[0];
+        this.id = dataAPI.id;
+        this.titleVideo = `${dataAPI.snippet.title}`;
+        this.src = `https://www.youtube.com/embed/${dataAPI.id}`;
+        this.image = `http://img.youtube.com/vi/${dataAPI.id}/hqdefault.jpg`;
+        this.channelTitle = `${dataAPI.snippet.channelTitle}`;
+        this.publishedAt = `${dataAPI.snippet.publishedAt}`;
+        this.index = index;
+        index++;
     }
 }
+
+export default class Node {
+    constructor(data) {
+        this.video = new Video(data);
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+
+
 
