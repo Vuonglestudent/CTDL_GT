@@ -2,7 +2,7 @@ import DoublyLinkedList from './DoublyLinkedList.js';
 import Node from './node.js';
 
 // let's select all required tags or elements
-const API_KEY = "AIzaSyAtO5Aq8Ygs9Ihdr2ag-j0aQrv5n3UyLiA";
+const API_KEY = "";
 const mainVideo = document.querySelector('#main-Video');
 const musicList = document.querySelector('.music-list');
 const playlist = document.getElementById('playlist');
