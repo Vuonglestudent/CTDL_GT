@@ -77,7 +77,11 @@ window.addEventListener('load', async () => {
          , function (evt, value) { // click ok
             let deletedNode = doublyLinkedList.returnNode(parseInt(musicIndex) - 1);
             if (deletedNode) {
+               debugger
                doublyLinkedList.deleteNode(deletedNode);
+               if (musicIndex - 1 >= doublyLinkedList.size) {
+                  musicIndex = musicIndex - 1;
+               }
                loadPlaylistVideo();
                loadMusic(musicIndex);
             }
@@ -114,6 +118,9 @@ window.addEventListener('load', async () => {
       if (allLiTags.length > 0) {
          for (let j = 0; j < doublyLinkedList.size; j++) {
             let getIndex = allLiTags[j]?.querySelectorAll("span")[1].id.split("_")[1];
+            if (getIndex >= parseInt(allLiTags[j]?.getAttribute('li-index'))) {
+               getIndex = parseInt(allLiTags[j]?.getAttribute('li-index')) - 1;
+            }
             if (getIndex) {
                if (allLiTags[j].classList.contains('playing')) {
                   allLiTags[j].classList.remove("playing")
@@ -129,12 +136,17 @@ window.addEventListener('load', async () => {
    }
 
    function clicked(event) {
+      debugger
       var element = event.target;
       // getting li index of particular clicked li tag
       while (element.getAttribute("li-index") == null) {
          element = element.parentNode;
       }
-      let getIndex = element.querySelectorAll("span")[1].id.split("_")[1];
+      let getIndex = parseInt(element.querySelectorAll("span")[1].id.split("_")[1]);
+      if (getIndex >= parseInt(element.getAttribute('li-index'))) {
+         getIndex = parseInt(element.getAttribute('li-index')) - 1;
+      }
+
       musicIndex = parseInt(getIndex) + 1;
       loadMusic(musicIndex);
       playMusic();
